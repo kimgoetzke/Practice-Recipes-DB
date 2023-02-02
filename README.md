@@ -20,7 +20,7 @@ The project is a simple multi-users web service for storing recipes. Some key fe
 
 ## Configuration & available endpoints
 
-+ Create JAR by running `gradle clean build -x test` or updating your local Postgres credentials in `application.properties` and then `gradle clean build` 
++ Create JAR by running `gradle clean build -x test` 
 + Copy newly created JAR to src/main/docker with `cp build/libs/Recipes-DB-0.0.1-SNAPSHOT.jar src/main/docker`
 + Run `docker compose up` to create and run images and containers
 + Use local port `8881` for API requests
