@@ -13,7 +13,7 @@ The project is a simple multi-users web service for storing recipes. Some key fe
 + Sprint Crypto to implement BCrypt encoding for passwords
 + Sprint Security to allow only authorised users access (except for user registration)
 + Processing and returning data in JSON format
-+ Using Project Lombok to reduce boilerplate code ()
++ Using Project Lombok to reduce boilerplate code
 + Docker Compose to separate app from database
 + PostgreSQL database
 
