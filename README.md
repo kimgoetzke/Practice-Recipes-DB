@@ -3,6 +3,8 @@
 This repo contains a simple multi-users web service, written in Java and using the Spring framework. 
 
 This app was initially created as a [graduate project](https://hyperskill.org/projects/180) for the '[Spring Security for Java Backend Developer](https://hyperskill.org/tracks/38)' track on Hyperskill (JetBrains Academy). However, after finishing the project, I decided to:
++ Add unit tests, resulting in <ins>96% code coverage</ins>
++ Add an OpenAPI YAML spec for the API
 + Migrate from using an H2 database to Postgres
 + Containerise the app/db with Docker Compose
 + Upgrade to the latest Spring Framework 6 (which required:)
@@ -20,7 +22,7 @@ The project is a simple multi-users web service for storing recipes. Some key fe
 
 ## Configuration & available endpoints
 
-+ Create JAR by running `gradle clean build -x test` 
++ Create JAR by running `gradle clean build -x test`
 + Copy newly created JAR to src/main/docker with `cp build/libs/Recipes-DB-0.0.1-SNAPSHOT.jar src/main/docker`
 + Run `docker compose up` to create and run images and containers
 + Use local port `8881` for API requests
