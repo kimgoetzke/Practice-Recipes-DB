@@ -1,0 +1,202 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+  - url: http://localhost:8881
+    description: Generated server url
+paths:
+  /api/recipe/{id}:
+    get:
+      tags:
+        - recipe-controller
+      summary: Get a recipe
+      operationId: getRecipe
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Success - recipe found and returned as JSON
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Recipe'
+        '401':
+          description: User not authorised
+        '404':
+          description: Recipe not found
+    put:
+      tags:
+        - recipe-controller
+      summary: Update an existing recipe
+      operationId: updateRecipe
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Recipe'
+        required: true
+      responses:
+        '204':
+          description: Success - recipe found and updated
+          content:
+            application/json: {}
+        '401':
+          description: User not authorised
+        '403':
+          description: Requester is not the owner of the recipe, cannot update another users recipes
+        '404':
+          description: Recipe not found
+    delete:
+      tags:
+        - recipe-controller
+      summary: Delete an existing recipe
+      operationId: deleteRecipe
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Success - recipe found and deleted
+          content:
+            application/json: {}
+        '401':
+          description: User not authorised
+        '403':
+          description: Requester is not the owner of the recipe, cannot delete another users recipes
+        '404':
+          description: Recipe not found
+  /api/register:
+    post:
+      tags:
+        - authentication-controller
+      summary: Register as a new user
+      operationId: registerUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppUser'
+        required: true
+      responses:
+        '200':
+          description: User successfully created
+        '400':
+          description: Invalid credentials provided
+  /api/recipe/new:
+    post:
+      tags:
+        - recipe-controller
+      summary: Add a recipe
+      operationId: addRecipe
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Recipe'
+        required: true
+      responses:
+        '200':
+          description: Success - recipe added
+          content:
+            application/json:
+              schema:
+                type: integer
+                format: int32
+        '400':
+          description: Invalid recipe provided
+        '401':
+          description: User not authorised
+  /api/recipe/search:
+    get:
+      tags:
+        - recipe-controller
+      summary: Search all existing recipes
+      operationId: searchRecipes
+      parameters:
+        - name: category
+          in: query
+          description: Return any recipe with this exact category
+          required: false
+          schema:
+            type: string
+          example: Beverage
+        - name: name
+          in: query
+          description: Return any recipe names containing this string
+          required: false
+          schema:
+            type: string
+          example: Mint
+      responses:
+        '200':
+          description: Success - recipe found and updated
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Recipe'
+        '400':
+          description: Invalid search criteria (likely none provided)
+        '401':
+          description: User not authorised
+        '404':
+          description: No matching recipes found
+components:
+  schemas:
+    Recipe:
+      required:
+        - category
+        - description
+        - directions
+        - ingredients
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+        category:
+          type: string
+        date:
+          type: string
+          format: date-time
+          readOnly: true
+        description:
+          type: string
+        ingredients:
+          type: array
+          items:
+            type: string
+        directions:
+          type: array
+          items:
+            type: string
+    AppUser:
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          maxLength: 2147483647
+          minLength: 8
+          type: string

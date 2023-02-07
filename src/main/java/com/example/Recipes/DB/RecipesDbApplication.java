@@ -8,7 +8,6 @@ public class RecipesDbApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(RecipesDbApplication.class, args);
-		System.out.println("We're live.");
 	}
 
 }

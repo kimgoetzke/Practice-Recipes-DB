@@ -1,6 +1,7 @@
 package com.example.Recipes.DB.business;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,5 +28,6 @@ public class AppUser {
 
     @OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL, orphanRemoval=true, fetch = FetchType.LAZY)
     @JsonManagedReference
+    @Schema(hidden = true)
     private Set<Recipe> recipes;
 }
